@@ -1,7 +1,7 @@
 import { Title } from "../../components/title/title"
 
 export const Description2 = (props) => {
-    const {image } = props;
+    const {image , description } = props;
 
     return (
         <>
@@ -12,6 +12,8 @@ export const Description2 = (props) => {
                 </div>
 
                 {/* lấy dữ liệu */}
+                {description}
+
 
 
             </div>

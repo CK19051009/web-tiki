@@ -1,7 +1,6 @@
-import { onValue, ref } from 'firebase/database';
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { dataFirebase } from '../../firebaseConfig';
 import { Header } from '../../components/header/Header';
 import { Right } from './right';
 import { Footer } from '../../components/footer/footer';
@@ -16,24 +15,35 @@ export const ProductDetailsPages = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        const productRef = ref(dataFirebase, "products/" + id);
+        // const productRef = ref(dataFirebase, "products/" + id);
         
     
-        const unsubscribe = onValue(productRef, (snapshot) => {
-            const value = snapshot.val();
-            if (value) {
-                setProduct({
-                    image: value.image,
-                    title: value.title,
-                    sold: value.sold,
-                    price: value.price,
-                    discount: value.discount
-                });
-            }
-        });
+        // const unsubscribe = onValue(productRef, (snapshot) => {
+        //     const value = snapshot.val();
+        //     if (value) {
+        //         setProduct({
+        //             image: value.image,
+        //             title: value.title,
+        //             sold: value.sold,
+        //             price: value.price,
+        //             discount: value.discount
+        //         });
+        //     }
+        // });
 
+        
+        // return () => unsubscribe();
+    //     const fetchData = async () => {
+    //         const data = await fetchApi(`https://h5ltj4-8080.csb.app/books/${id}`)
+    //         setProduct(data)
 
-        return () => unsubscribe();
+    //    };
+    //    fetchData()
+        fetch(`https://h5ltj4-8080.csb.app/books/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                setProduct(data)
+            })
     }, [id]);
     console.log(product)
     return (
@@ -44,10 +54,10 @@ export const ProductDetailsPages = () => {
 
                 <Header />
                 <div className='mt-[40px] container mx-auto mb-[60px] flex'>
-                    <Right image ={product.image} />
+                    <Right image ="" />
                     <div className='mx-[26px]'>
                         <Middle />
-                        <Description2 image={product.image}/>
+                        <Description2 image="" />
                     </div>
                     <Left />
 
